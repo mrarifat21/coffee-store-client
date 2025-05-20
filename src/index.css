@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Rancho font */
+
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Rancho&display=swap");
+
+/* .custom-placeholder::placeholder {
+  color: rgba(27, 26, 26, 0.6);
+} */
+
+body {
+  font-family: "Raleway", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Rancho", cursive;
+ 
+}
