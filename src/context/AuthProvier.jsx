@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthContext } from "./AuthContext";
 import { auth } from "../firebase/firebase.init";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword } from "firebase/auth";
 const AuthProvier = ({ children }) => {
 
   //  create user with email and password
@@ -15,16 +15,15 @@ const AuthProvier = ({ children }) => {
   }
 
 
-  // const deleteUser =()=>{
-  //   const (user){
-  //     return 
-  //   }
-  // }
+  const removeUser =(auth)=>{
+    return deleteUser(auth.currentUser)
+  }
 
   
   const userInfo = {
     createUser,
-    signinUser
+    signinUser,
+    removeUser
   };
 
   return <AuthContext value={userInfo}>{children}</AuthContext>;

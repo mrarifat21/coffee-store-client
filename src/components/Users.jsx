@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthContext";
 
 const Users = () => {
   const initialUsers = useLoaderData();
   const [users, setUsers] = useState(initialUsers);
   console.log(initialUsers);
 
-  const hanedleDelete = (id) => {
+  const hanedleDelete = (id, uid) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -18,18 +19,24 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/users/${id}`, {
+        fetch(`https://coffee-store-server-delta-rouge.vercel.app/users/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount) {
               const remainigUsers = users.filter((user) => user._id !== id);
+              console.log(remainigUsers);
               setUsers(remainigUsers);
 
-            //    HW = also delete user from firebase
-
-
+              //  HW = also delete user from firebase
+              fetch(`https://coffee-store-server-delta-rouge.vercel.app/delete-user/${uid}`, {
+                method: "DELETE",
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log("Firebase user deleted:", data);
+                });
 
               Swal.fire({
                 title: "Deleted!",
@@ -88,7 +95,7 @@ const Users = () => {
                   <button className="btn  btn-xs">V</button>
                   <button className="btn  btn-xs">E</button>
                   <button
-                    onClick={() => hanedleDelete(user._id)}
+                    onClick={() => hanedleDelete(user._id, user.uid)}
                     className="btn  btn-xs"
                   >
                     X

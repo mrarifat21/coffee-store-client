@@ -25,13 +25,14 @@ const SignUp = () => {
           email,
           ...restFormData,
           creationTime: result.user?.metadata.creationTime,
-          lastSignInTime: result.user?.metadata.lastSignInTime
+          lastSignInTime: result.user?.metadata.lastSignInTime,
+          uid: result.user.uid,
         };
 
         console.log(email, password, userProfile);
 
         //  save profile to db
-        fetch("http://localhost:3000/users", {
+        fetch("https://coffee-store-server-delta-rouge.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
